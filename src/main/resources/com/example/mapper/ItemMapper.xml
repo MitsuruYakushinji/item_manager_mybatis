@@ -31,5 +31,41 @@
 			CATEGORIES C
 		ON
 			C.ID = I.CATEGORY_ID
+		ORDER BY
+			I.ID
 	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyColumn="ID" keyProperty="id">
+		INSERT INTO ITEMS (ID, NAME, PRICE, CATEGORY_ID) VALUES (ITEM_ID_SEQ.nextval, #{name}, #{price}, #{category.id})
+	</insert>
+	
+	<select id="findById" resultMap="itemMap">
+		SELECT
+			I.ID
+			,I.NAME
+			,I.PRICE
+			,I.STOCK
+			,I.DELETED_AT
+			,C.ID AS C_ID
+			,C.NAME AS C_NAME
+		FROM
+			ITEMS I
+		INNER JOIN
+			CATEGORIES C
+		ON
+			C.ID = I.CATEGORY_ID
+		WHERE
+			I.ID = #{id}
+		ORDER BY
+			I.ID
+	</select>
+	
+	<update id="update">
+		UPDATE ITEMS SET NAME = #{name}, PRICE = #{price}, CATEGORY_ID = #{category.id} WHERE ID = #{id}
+	</update>
+	
+	<delete id="deleteById">
+		DELETE FROM ITEMS WHERE ID = #{id}
+	</delete>
+	
 </mapper>
