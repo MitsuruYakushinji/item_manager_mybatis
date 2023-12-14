@@ -1,5 +1,12 @@
 package com.example.mapper;
 
-public class ItemMapper {
+import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
+import com.example.entity.Item;
+
+@Mapper
+public interface ItemMapper {
+	public List<Item> findAll();
 }
